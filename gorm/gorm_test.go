@@ -21,14 +21,18 @@ func TestMyOrm_CreateInBatches(t *testing.T) {
 		t.Log(err)
 		return
 	}
+	if gorm == nil {
+		t.Log("gorm is nil")
+		return
+	}
 	//myOrm := MyOrm{Gdb: gorm}
 	mockList := Mock()
 	gorm.Table("base_city").CreateInBatches(mockList, len(mockList))
 	//myOrm.CreateInBatches("base_city",mockList)
 }
 
-func Mock() []interface{} {
-	var list []interface{}
+func Mock() []*BaseCity {
+	var list []*BaseCity
 	for i := 0; i < 5; i++ {
 		list = append(list, &BaseCity{
 			CityID: i,
