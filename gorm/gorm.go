@@ -13,6 +13,7 @@ type MyOrm struct {
 func (myOrm *MyOrm) CreateInBatches(table string, insertData []interface{}) {
 	myOrm.Gdb.Table(table).CreateInBatches(insertData, len(insertData))
 }
+
 func InitGormByDB(db *sql.DB) (gdb *gorm.DB, err error) {
 	gdb, err = gorm.Open(mysql.New(mysql.Config{Conn: db}), &gorm.Config{})
 	if err != nil {

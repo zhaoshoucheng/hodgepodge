@@ -1,6 +1,9 @@
 package gorm
 
-import "testing"
+import (
+	"github.com/zhaoshoucheng/hodgepodge/conf"
+	"testing"
+)
 
 func TestMyOrm_CreateInBatches(t *testing.T) {
 	db, err := InitMysqlDB()
@@ -31,10 +34,10 @@ func TestMyOrm_CreateInBatches(t *testing.T) {
 	//myOrm.CreateInBatches("base_city",mockList)
 }
 
-func Mock() []*BaseCity {
-	var list []*BaseCity
+func Mock() []*conf.BaseCity {
+	var list []*conf.BaseCity
 	for i := 0; i < 5; i++ {
-		list = append(list, &BaseCity{
+		list = append(list, &conf.BaseCity{
 			CityID: i,
 			ProvinceID: i,
 			Name:"test",

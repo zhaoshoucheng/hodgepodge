@@ -1,4 +1,5 @@
-package gorm
+package conf
+
 
 //mysql 测试表
 /*
