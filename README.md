@@ -8,3 +8,6 @@ hodgepodge 包含一些框架，模块的验证，实践代码，提供学习使
 --file 			//读取不同格式文件的代码xsml,json
 --quick_gin 		//以gin框架为基础的简单服务框架
 --swagger 		//基于swaggo的API自动文档生成(gin版本)
+--jaeger		//分布式链路追踪系统Jaeger 与实践,结合gin框架的用,web工程使用的quick_gin
+
+
