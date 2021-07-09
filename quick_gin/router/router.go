@@ -2,9 +2,9 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/zhaoshoucheng/hodgepodge/jaeger"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/formwork"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/jump"
-	"github.com/zhaoshoucheng/hodgepodge/quick_gin/middleware"
 )
 
 func InitRouter() *gin.Engine {
@@ -14,7 +14,7 @@ func InitRouter() *gin.Engine {
 			"message": "pong",
 		})
 	})
-	router.Use(middleware.Trace())
+	router.Use(jaeger.Trace())
 
 	v1 := router.Group("/v1")
 	formwork.Register(v1)

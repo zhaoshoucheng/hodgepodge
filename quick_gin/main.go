@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"github.com/gin-gonic/gin"
+	"github.com/zhaoshoucheng/hodgepodge/jaeger"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/conf"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/router"
-	"github.com/zhaoshoucheng/hodgepodge/jaeger"
 	"log"
 	"net/http"
 	"os"
