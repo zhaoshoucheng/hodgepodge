@@ -16,6 +16,7 @@ require (
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	go.uber.org/atomic v1.8.0 // indirect
+	go.uber.org/dig v1.11.0
 	gorm.io/driver/mysql v1.1.0
 	gorm.io/gorm v1.21.10
 )
