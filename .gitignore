@@ -6,7 +6,7 @@
 *.dll
 *.so
 *.dylib
-
+hodgepodge
 # Test binary, built with `go test -c`
 *.test
 

@@ -35,20 +35,20 @@ var CreatProvince = "CREATE TABLE base_province ( `id` INT(11) UNSIGNED NOT NULL
 var CreatDistrices = "CREATE TABLE base_districts ( `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增id', `districts_id` INT(11) NOT NULL COMMENT '行政区ID', `name` VARCHAR(100) NOT NULL COMMENT '行政区名', `city_id` INT(11) COMMENT '城市ID', `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建起始时间', `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间' , PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT '基础行政区表';"
 
 type BaseCity struct {
-	CityID     int    `json:"city_id" orm:"column(city_id)`
-	ProvinceID int    `json:"province_id" orm:"column(province_id)`
-	Name       string `json:"name" orm:"column(city_name)`
+	CityID     int    `json:"city_id" orm:"column(city_id)"`
+	ProvinceID int    `json:"province_id" orm:"column(province_id)"`
+	Name       string `json:"name" orm:"column(city_name)"`
 }
 
 type BaseProvince struct {
-	ProvinceID int    `json:"province_id" orm:"column(province_id)`
-	Name       string `json:"name" orm:"column(province_name)`
+	ProvinceID int    `json:"province_id" orm:"column(province_id)"`
+	Name       string `json:"name" orm:"column(province_name)"`
 }
 
 type BaseDistricts struct {
-	DistrictsId int    `json:"districts_id" orm:"column(districts_id)`
-	Name        string `json:"name" orm:"column(districts_name)`
-	CityID      int    `json:"city_id" orm:"column(city_id)`
+	DistrictsId int    `json:"districts_id" orm:"column(districts_id)"`
+	Name        string `json:"name" orm:"column(districts_name)"`
+	CityID      int    `json:"city_id" orm:"column(city_id)"`
 }
 
 type MySQLConf struct {

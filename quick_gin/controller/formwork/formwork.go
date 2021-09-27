@@ -14,3 +14,8 @@ func Register(eng *gin.RouterGroup) {
 	eng.POST("/do1",fw.Test)
 	eng.GET("/do2",fw.Test)
 }
+func Register2(eng *gin.RouterGroup) {
+	fw := &FormworkController{}
+	eng.POST("",fw.Test)
+	eng.GET("",fw.Test)
+}

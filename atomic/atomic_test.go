@@ -24,4 +24,7 @@ func TestPerson_Update(t *testing.T) {
 	fmt.Printf("p.name=%s\np.age=%v\n", p.name, p.age)
 }
 
+func TestUpdateV2(t *testing.T) {
+}
+
 

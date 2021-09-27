@@ -3,11 +3,12 @@ package gorm
 import (
 	"database/sql"
 	"fmt"
+	"github.com/zhaoshoucheng/hodgepodge/conf"
 	"time"
 )
 
 func InitMysqlDB() (db *sql.DB, err error) {
-	dbConf := InitMysqlConf()
+	dbConf := conf.InitMysqlConf()
 	db, err = sql.Open(dbConf.DriverName, dbConf.DataSourceName)
 	if err != nil {
 		return nil, err

@@ -15,7 +15,8 @@ func InitRouter() *gin.Engine {
 		})
 	})
 	router.Use(jaeger.Trace())
-
+	v2 := router.Group("/")
+	formwork.Register2(v2)
 	v1 := router.Group("/v1")
 	formwork.Register(v1)
 	jump.Register(v1)

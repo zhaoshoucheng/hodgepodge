@@ -12,8 +12,8 @@ func TestNewMyOrm(t *testing.T) {
 		return
 	}
 	type NewTable struct {
-		ID int    `json:"id" gorm:"column(id)`
-		Ip        string `json:"ip" gorm:"column(ip)`
+		ID 		 int `json:"id" gorm:"column(id)`
+		Ip       string `json:"ip" gorm:"column(ip)`
 		CID      int    `json:"cid" gorm:"column(cid)`
 
 	}

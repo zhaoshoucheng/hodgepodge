@@ -17,23 +17,23 @@ func TestNode_InsertChild(t *testing.T) {
 
 func TestNode_AddRoute(t *testing.T) {
 	node := &node{}
-	path1 := "/aaa/bbb/ccc"
-	path2 := "/aaa/bbb"
-	path3 := "/aaa/bbb/ccc/ddd"
-	path4 := "/aaa/*bbb"
+	//path1 := "/aaa/eee/ttt"
+	path2 := "/aaa/:bbb"
+	path3 := "/aaa/:bbb/ccc/:ddd"
+	path4 := "/"
 
 	node.AddRoute(path4,HandlersChain{func(*context.Context){}})
 	print(node, "root")
-	node.AddRoute(path1,HandlersChain{func(*context.Context){}})
-	print(node, "root")
-	fmt.Println("----------------------------------------")
+
 	node.AddRoute(path2,HandlersChain{func(*context.Context){}})
 	print(node, "root")
 	fmt.Println("----------------------------------------")
 	node.AddRoute(path3,HandlersChain{func(*context.Context){}})
 	print(node, "root")
 	fmt.Println("----------------------------------------")
-
+	//node.AddRoute(path1,HandlersChain{func(*context.Context){}})
+	//print(node, "root")
+	fmt.Println("----------------------------------------")
 }
 
 func TestNewDNode(t *testing.T) {
