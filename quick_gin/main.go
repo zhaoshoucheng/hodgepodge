@@ -10,7 +10,6 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"strconv"
 	"syscall"
 	"time"
 )
@@ -22,23 +21,34 @@ func main()  {
 		panic("jaeger trace init err")
 	}
 	defer jaeger.Closer()
-	port := 8800
-	for i := 0; i <= 20; i++ {
+	go func() {
 		router := router.InitRouter()
-		portSte := strconv.Itoa(port + i)
 		srv := http.Server{
-			Addr:           conf.Host +":"+portSte,
+			Addr:           conf.Host +":"+conf.Port,
 			Handler:        router,
 			ReadTimeout:    time.Duration(10) * time.Second,
 			WriteTimeout:   time.Duration(10) * time.Second,
 			MaxHeaderBytes: 1 << 20,
 		}
-		go func() {
-			if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-				log.Fatalf("listen: %s\n", err)
-			}
-		}()
-	}
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
+	}()
+
+	go func() {
+		//静态文件服务器
+		router := http.FileServer(http.Dir("./"))
+		srv := http.Server{
+			Addr:           conf.Host +":"+conf.FileServerPort,
+			Handler:        router,
+			ReadTimeout:    time.Duration(10) * time.Second,
+			WriteTimeout:   time.Duration(10) * time.Second,
+			MaxHeaderBytes: 1 << 20,
+		}
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
+	}()
 
 	quit := make(chan os.Signal)
 
