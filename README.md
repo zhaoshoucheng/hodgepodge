@@ -21,6 +21,8 @@ hodgepodge 包含一些框架，模块的验证，实践代码，提供学习使
 
 --dig			//依赖注入 使用uber-dig 包 
 
+--fsnotify		//fsnotify包对文件夹进行监控
+
 --log 			//log封装 
 
 --trie			//前缀树算法实现路由匹配(仿照gin源码)
