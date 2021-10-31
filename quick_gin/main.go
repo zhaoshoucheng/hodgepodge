@@ -15,7 +15,7 @@ import (
 )
 
 func main()  {
-	gin.SetMode(gin.TestMode)
+	gin.SetMode(gin.DebugMode)
 	err := jaeger.InitTracer("quick-gin")
 	if err != nil {
 		panic("jaeger trace init err")
