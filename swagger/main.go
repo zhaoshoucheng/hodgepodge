@@ -1,5 +1,0 @@
-package swagger
-
-func main() {
-
-}

@@ -5,7 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhaoshoucheng/hodgepodge/jaeger"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/conf"
+	"github.com/zhaoshoucheng/hodgepodge/quick_gin/docs"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/router"
+	"github.com/swaggo/files"
+	"github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 	"os"
@@ -23,6 +26,8 @@ func main()  {
 	defer jaeger.Closer()
 	go func() {
 		router := router.InitRouter()
+		setSwaggerInfo()
+		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 		srv := http.Server{
 			Addr:           conf.Host +":"+conf.Port,
 			Handler:        router,
@@ -67,4 +72,13 @@ func main()  {
 	log.Println("Server exiting")
 
 	signal.Stop(quit)
+}
+
+func setSwaggerInfo() {
+	docs.SwaggerInfo.Title = "my first swagger"
+	docs.SwaggerInfo.Description = "my first swagger"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = ""
+	docs.SwaggerInfo.BasePath = ""
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 }

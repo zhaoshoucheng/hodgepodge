@@ -5,6 +5,15 @@ import "github.com/gin-gonic/gin"
 type FormworkController struct {
 }
 
+// helloworld godoc
+// @Summary helloworld
+// @Description 测试服务连通性helloworld
+// @Tags V1
+// @ID /v1/do1
+// @Accept json
+// @Produce  json
+// @Success 200 {object} string "success"
+// @Router /v1/do1 [post]
 func (fw *FormworkController) Test(ctx *gin.Context) {
 	ctx.JSON(200,"hello world")
 }
