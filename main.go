@@ -10,7 +10,6 @@ func main() {
 	logger := zlog.New(writer)
 	logger.Write([]byte("hello world!"))
 	time.Sleep(time.Second * 5)
-
 	return
 }
 

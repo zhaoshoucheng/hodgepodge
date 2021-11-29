@@ -2,11 +2,14 @@ module github.com/zhaoshoucheng/hodgepodge
 
 go 1.16
 
+replace github.com/Sirupsen/logrus v1.4.2 => github.com/sirupsen/logrus v1.4.1
+
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
 	github.com/HdrHistogram/hdrhistogram-go v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
-	github.com/gin-gonic/gin v1.7.2
+	github.com/gin-contrib/pprof v1.3.0 // indirect
+	github.com/gin-gonic/gin v1.7.4
 	github.com/go-lintpack/lintpack v0.5.2 // indirect
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
@@ -26,13 +29,19 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/shirou/gopsutil v0.0.0-20180427012116-c95755e4bcd7 // indirect
 	github.com/shirou/w32 v0.0.0-20160930032740-bb4de0191aa4 // indirect
+	github.com/swaggo/files v0.0.0-20210815190702-a29dd2bc99b2 // indirect
+	github.com/swaggo/gin-swagger v1.3.3 // indirect
+	github.com/swaggo/swag v1.7.4 // indirect
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
+	go.intra.xiaojukeji.com/cloud/golang_common v1.3.1 // indirect
 	go.uber.org/atomic v1.8.0 // indirect
 	go.uber.org/dig v1.11.0
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	gopkg.in/airbrake/gobrake.v2 v2.0.9 // indirect
 	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
+	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
+	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 	gorm.io/driver/mysql v1.1.0
 	gorm.io/gorm v1.21.10
 	sourcegraph.com/sqs/pbtypes v0.0.0-20180604144634-d3ebe8f20ae4 // indirect
