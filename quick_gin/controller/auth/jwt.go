@@ -16,6 +16,11 @@ func token(c *gin.Context) {
 }
 
 func getUserName(c *gin.Context) {
+	if username, exists := c.Get("username"); exists {
+		c.JSON(200, username)
+		return
+	}
+	c.JSON(200, "username not exists")
 }
 func Register(eng *gin.RouterGroup) {
 	eng.GET("/oauth/tokens",token)

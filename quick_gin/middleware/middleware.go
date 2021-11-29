@@ -11,8 +11,9 @@ func JwtAuthMiddleware() gin.HandlerFunc {
 		userName, err := Access.JwtAuth(c)
 		if err != nil {
 			c.JSON(200, err.Error())
+			c.Abort()
 		}
-		c.JSON(200, userName)
-		c.Abort()
+		c.Set("username", userName)
+		c.Next()
 	}
 }

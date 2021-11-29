@@ -7,6 +7,7 @@ replace github.com/Sirupsen/logrus v1.4.2 => github.com/sirupsen/logrus v1.4.1
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
 	github.com/HdrHistogram/hdrhistogram-go v1.1.0 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/gin-contrib/pprof v1.3.0 // indirect
 	github.com/gin-gonic/gin v1.7.4
