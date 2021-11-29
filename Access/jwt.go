@@ -16,6 +16,7 @@ const (
 )
 
 /*
+Tokens
 jwt 通过 json 传输
 传输数据通过数据签名相对比较安全。客户端与服务端通过 jwt 交互，服务端通过解密 token 信息，来实现用户认证。
 不需要服务端集中维护 token 信息，便于扩展。当然 jwt 也有其缺点
@@ -42,9 +43,8 @@ func Tokens(c *gin.Context) (string ,error) {
 	if len(parts) != 2 {
 		return "", errors.New("用户名或密码格式错误")
 	}
-	//TODO
-	//通常是username 和password校验
-	//校验通过生成token
+	//TODO 通常是username 和password校验
+	//生成token
 	claims := jwt.StandardClaims{
 		Issuer:    parts[0],
 		ExpiresAt: time.Now().Add(JwtExpires * time.Second).Unix(),
