@@ -7,6 +7,7 @@ import (
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/auth"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/formwork"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/jump"
+	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/websocket"
 )
 
 func InitRouter() *gin.Engine {
@@ -26,5 +27,8 @@ func InitRouter() *gin.Engine {
 	v1 := router.Group("/v1")
 	formwork.Register(v1)
 	jump.Register(v1)
+
+	v3 := router.Group("")
+	websocket.Register(v3)
 	return router
 }

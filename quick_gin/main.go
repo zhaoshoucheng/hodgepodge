@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"github.com/gin-gonic/gin"
+	"github.com/swaggo/files"
+	"github.com/swaggo/gin-swagger"
 	"github.com/zhaoshoucheng/hodgepodge/jaeger"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/conf"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/docs"
 	"github.com/zhaoshoucheng/hodgepodge/quick_gin/router"
-	"github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 	"os"
@@ -26,8 +26,10 @@ func main()  {
 	defer jaeger.Closer()
 	go func() {
 		router := router.InitRouter()
+		//设置Swagger
 		setSwaggerInfo()
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+		//服务配置
 		srv := http.Server{
 			Addr:           conf.Host +":"+conf.Port,
 			Handler:        router,
