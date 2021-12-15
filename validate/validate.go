@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+/*
+validate 用于参数自动校验
+*/
 var (
 	Uni      *ut.UniversalTranslator
 	Validate *validator.Validate
