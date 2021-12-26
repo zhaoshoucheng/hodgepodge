@@ -23,6 +23,7 @@ type RespInfo struct {
 				Name string `json:"name"`
 				Value string `json:"value"`
 			} `json:"desc"`
+			X string `json:"x"`
 		} `json:"avg"`
 		LastAvg []struct{
 			Desc []struct{
@@ -32,8 +33,14 @@ type RespInfo struct {
 		} `json:"last_avg"`
 	} `json:"data"`
 }
-func main() {
 
+type data struct {
+	ID int
+	Source int
+	SV int
+}
+
+func main() {
 	//url1 := "http://172.22.41.32:8080/test_service_name/v1/do2"
 	//url2 := "http://127.0.0.1:8080/test_service_name/v1/do2"
 	//url3 := "http://localhost:8080/test_service_name/v1/do2"
@@ -50,7 +57,26 @@ func main() {
 	avgMap := make(map[string]float64)
 	lastAvgMap := make(map[string]float64)
 	for _, agvInfo := range resp.Data.Avg {
-		for _, desc := range agvInfo.Desc {
+		for index, desc := range agvInfo.Desc {
+			if index == 0 && desc.Name == "PI" {
+				continue
+			}
+			if index == 1 && desc.Name == "单次停车比率" {
+				continue
+			}
+			if index == 2 && desc.Name == "过饱和比率" {
+				continue
+			}
+			if index == 3 && desc.Name == "溢流比率" {
+				continue
+			}
+			if index == 4 && desc.Name == "延误时间" {
+				continue
+			}
+			if index == 5 && desc.Name == "停车次数" {
+				continue
+			}
+			fmt.Println("agvInfo", agvInfo)
 			if _,exists := avgMap[desc.Name]; !exists {
 				avgMap[desc.Name] = 0
 			}
@@ -61,10 +87,13 @@ func main() {
 			avgMap[desc.Name] = avgMap[desc.Name] + value
 		}
 	}
+
+	fmt.Println("---------------------------------")
 	for _, lastAvginfo := range resp.Data.LastAvg {
 		for _, desc := range lastAvginfo.Desc {
 			if _,exists := lastAvgMap[desc.Name]; !exists {
 				lastAvgMap[desc.Name] = 0
+				fmt.Println(desc.Name)
 			}
 			value, err := strconv.ParseFloat(desc.Value,64)
 			if err != nil {
