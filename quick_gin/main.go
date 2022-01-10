@@ -31,7 +31,22 @@ func main()  {
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 		//服务配置
 		srv := http.Server{
-			Addr:           conf.Host +":"+conf.Port,
+			Addr:           conf.Host +":"+conf.Port1,
+			Handler:        router,
+			ReadTimeout:    time.Duration(10) * time.Second,
+			WriteTimeout:   time.Duration(10) * time.Second,
+			MaxHeaderBytes: 1 << 20,
+		}
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
+	}()
+
+	go func() {
+		router := router.InitRouter()
+		//服务配置
+		srv := http.Server{
+			Addr:           conf.Host +":"+conf.Port2,
 			Handler:        router,
 			ReadTimeout:    time.Duration(10) * time.Second,
 			WriteTimeout:   time.Duration(10) * time.Second,

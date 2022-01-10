@@ -17,6 +17,8 @@ hodgepodge 包含一些框架，模块的验证，实践代码，提供学习使
 --log 			//log封装   
 --trie			//前缀树算法实现路由匹配(仿照gin源码)  
 --mmap           	//内存映射文件使用    
+--proxy			//代理  
+    --http			//http代理服务  
 --rpc 			//go原生的rpc实现  
 
 

@@ -20,7 +20,7 @@ type JumpController struct {
 
 func (JC *JumpController) A(ctx *gin.Context) {
 	//A -> b
-	abURl := "http://"+conf.Host+":"+conf.Port+"/v1"+pathAB
+	abURl := "http://"+conf.Host+":"+conf.Port1+"/v1"+pathAB
 	respAB, err := util.Get(ctx, abURl)
 	if err != nil {
 		log.Println(err)
@@ -28,7 +28,7 @@ func (JC *JumpController) A(ctx *gin.Context) {
 		log.Println(respAB)
 	}
 	//A -> c
-	abUrl := "http://"+conf.Host+":"+conf.Port+"/v1"+pathAC
+	abUrl := "http://"+conf.Host+":"+conf.Port1+"/v1"+pathAC
 	respAC, err := util.Get(ctx, abUrl)
 	if err != nil {
 		log.Println(err)
@@ -40,7 +40,7 @@ func (JC *JumpController) A(ctx *gin.Context) {
 
 func (JC *JumpController) AB(ctx *gin.Context) {
 	//b -> d
-	bdUrl := "http://"+conf.Host+":"+conf.Port+"/v1"+pathBD
+	bdUrl := "http://"+conf.Host+":"+conf.Port1+"/v1"+pathBD
 	resp, err := util.Get(ctx, bdUrl)
 	if err != nil {
 		log.Println(err)
@@ -57,7 +57,7 @@ func (JC *JumpController) AC(ctx *gin.Context) {
 }
 func (JC *JumpController) BD(ctx *gin.Context) {
 	// ->d
-	url := "http://"+conf.Host+":"+conf.Port+"/v1"+pathD
+	url := "http://"+conf.Host+":"+conf.Port1+"/v1"+pathD
 	resp, err := util.Get(ctx, url)
 	if err != nil {
 		log.Println(err)
