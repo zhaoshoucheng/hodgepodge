@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"go.etcd.io/etcd/clientv3"
 	"time"
@@ -19,16 +20,22 @@ func main() {
 	}
 	ctx, _ := context.WithTimeout(context.TODO(), time.Second)
 	//key := "/lkfe/test/filter"
-	key := "/lkfe/test/discover/endpoints/luckyudubbodemo@lfe.upstream/172.22.2.172:8080"
-	//key := "/lkfe/test/"
+	//key := "/lkfe/test/discover/endpoints/"
+	key := "/lkfe/test/"
 	resp, err := cli.KV.Get(ctx, key, clientv3.WithPrefix(), clientv3.WithRev(0))
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+	//fmt.Println(resp.Header.Revision)
 	//fmt.Println(resp)
 	for _, value := range resp.Kvs {
-		fmt.Println(string(value.Value))
+		data := make(map[string]interface{})
+		json.Unmarshal(value.Value, &data)
+		if _, exists := data["state"]; !exists {
+			continue
+		}
+		fmt.Println(data["state"])
 	}
 
 }

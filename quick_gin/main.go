@@ -17,13 +17,14 @@ import (
 	"time"
 )
 
-func main()  {
+func main() {
 	gin.SetMode(gin.DebugMode)
 	err := jaeger.InitTracer("quick-gin")
 	if err != nil {
 		panic("jaeger trace init err")
 	}
 	defer jaeger.Closer()
+	//swagger 配置
 	go func() {
 		router := router.InitRouter()
 		//设置Swagger
@@ -31,7 +32,7 @@ func main()  {
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 		//服务配置
 		srv := http.Server{
-			Addr:           conf.Host +":"+conf.Port1,
+			Addr:           conf.Host + ":" + conf.Port1,
 			Handler:        router,
 			ReadTimeout:    time.Duration(10) * time.Second,
 			WriteTimeout:   time.Duration(10) * time.Second,
@@ -42,11 +43,12 @@ func main()  {
 		}
 	}()
 
+	//主服务
 	go func() {
 		router := router.InitRouter()
 		//服务配置
 		srv := http.Server{
-			Addr:           conf.Host +":"+conf.Port2,
+			Addr:           conf.Host + ":" + conf.Port2,
 			Handler:        router,
 			ReadTimeout:    time.Duration(10) * time.Second,
 			WriteTimeout:   time.Duration(10) * time.Second,
@@ -57,11 +59,11 @@ func main()  {
 		}
 	}()
 
+	//一个静态文件服务器
 	go func() {
-		//静态文件服务器
 		router := http.FileServer(http.Dir("./"))
 		srv := http.Server{
-			Addr:           conf.Host +":"+conf.FileServerPort,
+			Addr:           conf.Host + ":" + conf.FileServerPort,
 			Handler:        router,
 			ReadTimeout:    time.Duration(10) * time.Second,
 			WriteTimeout:   time.Duration(10) * time.Second,
@@ -82,10 +84,10 @@ func main()  {
 	defer cancel()
 	_ = ctx
 	/*
-	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("Server Shutdown:", err)
-	}
-	 */
+		if err := srv.Shutdown(ctx); err != nil {
+			log.Fatal("Server Shutdown:", err)
+		}
+	*/
 	log.Println("Server exiting")
 
 	signal.Stop(quit)
