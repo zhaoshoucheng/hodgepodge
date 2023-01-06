@@ -7,6 +7,8 @@ type Service1 interface {
 type Service2 interface {
 	AddData(string)
 	DelData(string)
+	SyncData(t int)
+	InitService(done InitializeDoneProc)
 }
 
 type Module interface {

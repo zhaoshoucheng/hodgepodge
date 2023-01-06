@@ -1,10 +1,10 @@
 package module
 
 import (
+	"context"
 	"fmt"
 	"github.com/berkaroad/ioc"
 	"github.com/zhaoshoucheng/hodgepodge/IoC/app"
-	_ "github.com/zhaoshoucheng/hodgepodge/IoC/resource"
 )
 
 var (
@@ -24,13 +24,21 @@ func (mo *ModuleObj) DataToRemove(str string) {
 }
 
 func init() {
-	mo := &ModuleObj{}
-	// static assert 静态断言类型检测
-	func(t app.Module) {}(mo)
+	app.DefaultApplicationLifeCycle().RegisterInitializer("module", func() error {
+		mo := &ModuleObj{}
+		// static assert 静态断言类型检测
+		func(t app.Module) {}(mo)
 
-	app.GetOrCreateRootContainer().RegisterTo(mo, (*app.Module)(nil), ioc.Singleton)
+		app.GetOrCreateRootContainer().RegisterTo(mo, (*app.Module)(nil), ioc.Singleton)
 
-	app.GetOrCreateRootContainer().Invoke(func(r app.Resource) {
-		rs = r
-	})
+		app.GetOrCreateRootContainer().Invoke(func(r app.Resource) {
+			rs = r
+		})
+		return nil
+	}, 2)
+
+	app.DefaultApplicationLifeCycle().RegisterFinalizer("module", func(ctx context.Context) error {
+		fmt.Println("module exit")
+		return nil
+	}, 2)
 }

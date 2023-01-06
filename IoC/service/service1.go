@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"fmt"
 	"github.com/berkaroad/ioc"
 	"github.com/zhaoshoucheng/hodgepodge/IoC/app"
@@ -27,19 +28,28 @@ func (s1 *Service1) DelData(str string) {
 }
 
 func init() {
-	s1 := &Service1{}
-	s2 := &Service2{}
+	app.DefaultApplicationLifeCycle().RegisterInitializer("service", func() error {
 
-	service2 = s2
+		s1 := &Service1{}
+		s2 := &Service2{}
 
-	//static assert 静态断言做类型检查
-	func(t app.Service1) {}(s1)
-	func(t app.Service2) {}(s2)
+		service2 = s2
 
-	app.GetOrCreateRootContainer().RegisterTo(s1, (*app.Service1)(nil), ioc.Singleton)
-	app.GetOrCreateRootContainer().RegisterTo(s2, (*app.Service2)(nil), ioc.Singleton)
+		//static assert 静态断言做类型检查
+		func(t app.Service1) {}(s1)
+		func(t app.Service2) {}(s2)
 
-	app.GetOrCreateRootContainer().Invoke(func(mod app.Module) {
-		module = mod
-	})
+		app.GetOrCreateRootContainer().RegisterTo(s1, (*app.Service1)(nil), ioc.Singleton)
+		app.GetOrCreateRootContainer().RegisterTo(s2, (*app.Service2)(nil), ioc.Singleton)
+
+		app.GetOrCreateRootContainer().Invoke(func(mod app.Module) {
+			module = mod
+		})
+		return nil
+	}, 3)
+
+	app.DefaultApplicationLifeCycle().RegisterFinalizer("service", func(ctx context.Context) error {
+		fmt.Println("service exit")
+		return nil
+	}, 3)
 }
