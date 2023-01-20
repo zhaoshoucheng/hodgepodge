@@ -41,8 +41,8 @@ mysql 数据库的使用
 利用Go's syscall package 使用GO的内存映射文件
 ## net 网络封装
 一些网络接口封装
-### nexux
-使用API接口将包上传到nexux
+### nexus
+使用API接口将包上传到nexus
 ## proxy 
 HTTP的代理转发功能
 ## quick_gin gin框架		
