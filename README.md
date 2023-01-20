@@ -1,8 +1,8 @@
-hodgepodge 包含一些框架，模块的验证，实践代码，提供学习使用   
+## hodgepodge 框架，模块的实践，工作中自己编写的工具   
 不积跬步，无以至千里。  
 不积小流，无以成江海。  
--Access			权限验证相关  
---jwt 		jwt验证相关  
+## Access 权限验证相关  
+### jwt jwt验证相关  
 -conf 			所有配置相关信息   				
 -gorm 			go语言对gorm使用代码  
 --go-gorm 	另一种框架的gorm的使用代码   		
