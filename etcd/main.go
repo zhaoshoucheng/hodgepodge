@@ -12,6 +12,21 @@ import (
 	"time"
 )
 
+type Cluster struct {
+	HealthChecks []struct {
+		Timeout            int `json:"timeout"`
+		Interval           int `json:"interval"`
+		UnhealthyThreshold int `json:"unhealthy_threshold"`
+		HealthyThreshold   int `json:"healthy_threshold"`
+		HttpHealthCheck    struct {
+			Method string `json:"method"`
+			Proto  string `json:"proto"`
+			Host   string `json:"host"`
+			Path   string `json:"path"`
+		} `json:"http_health_check"`
+	} `json:"health_checks"`
+}
+
 func main() {
 	configFile := flag.String("c", "config", "config filename (extension in include)")
 	flag.Parse()
@@ -23,8 +38,62 @@ func main() {
 		return
 	}
 
-	PrintlnAllValue("/openresty/", "itest")
+	//err = LeaseTest("open", 5)
+	//err = WatchTest("open")
+	LockTest()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	return
+}
+
+func getColoring() map[string]interface{} {
+	rule1 := make(map[string]interface{})
+	rule1["actions"] = map[string]string{"action": "set_group", "value": "gray"}
+	rule1["key"] = ""
+	rule1["op"] = "equal"
+	rule1["type"] = "ip"
+	rule1["value"] = "10.99.4.169"
+	rule2 := make(map[string]interface{})
+	rule2["actions"] = map[string]string{"action": "set_tag", "key": "ruversion", "value": "ruversion_server_test"}
+	rule2["key"] = "x-canary-test"
+	rule2["op"] = "equal"
+	rule2["type"] = "headers"
+	rule2["value"] = "test"
+
+	color1 := make(map[string]interface{})
+	color1["available_domain"] = []string{"server_test.com", "server_test1.com"}
+	color1["name"] = "server_test"
+	color1["rules"] = []interface{}{rule1, rule2}
+	return color1
+}
+func getProxyPolicyMatchTags() map[string]interface{} {
+	proxy1 := make(map[string]interface{})
+	proxy1["apply_on"] = []string{"server_test.com", "server_test1.com"}
+	proxy1["enabled_when"] = map[string]interface{}{
+		"match_group": "",
+		"match_tags":  map[string]string{"ruversion": "ruversion_server_test"},
+	}
+	proxy1["endpoint_metadata_match"] = map[string]interface{}{
+		"app_version": "server_test-v1.0.0",
+	}
+	proxy1["name"] = "server_test_match_tags"
+	return proxy1
+}
+func getProxyPolicyMatchGroup() map[string]interface{} {
+	proxy2 := make(map[string]interface{})
+	proxy2["apply_on"] = []string{"server_test.com", "server_test1.com"}
+	proxy2["enabled_when"] = map[string]interface{}{
+		"match_group": "gray",
+		"match_tags":  map[string]string{},
+	}
+	proxy2["endpoint_metadata_match"] = map[string]interface{}{
+		"traffic_strategy": "gray",
+	}
+	proxy2["name"] = "server_test_match_group"
+	return proxy2
 }
 
 func PrintlnAllKey(path string, env string) error {
@@ -45,6 +114,7 @@ func PrintlnAllValue(path string, env string) (values []string, err error) {
 	}
 	for _, value := range resp.Kvs {
 		fmt.Println(string(value.Value))
+		fmt.Println(value.ModRevision)
 		values = append(values, string(value.Value))
 	}
 	return
