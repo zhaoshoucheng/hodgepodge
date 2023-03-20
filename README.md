@@ -8,6 +8,9 @@ json web token登陆以及权限验证
 ## dig 依赖注入
 go.uber.org/dig 的使用
 ## etcd 的使用
+* dlock 分布式锁实践
+* lease 租约、自动续约实践
+* watch watch功能
 ## file 文件读取
 * json
 * txt
