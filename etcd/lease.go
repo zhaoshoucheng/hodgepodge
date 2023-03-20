@@ -26,7 +26,8 @@ func LeaseTest(env string, ttl int64) (err error) {
 	/*
 		保持长链接，每s续租一次
 	*/
-	keepRespChan, err := lease.KeepAlive(context.TODO(), leaseGrant.ID)
+	ctx, cancelFunc := context.WithCancel(context.TODO())
+	keepRespChan, err := lease.KeepAlive(ctx, leaseGrant.ID)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -45,6 +46,12 @@ func LeaseTest(env string, ttl int64) (err error) {
 			}
 		}
 	}()
+	// 取消续期
+	go func() {
+		time.Sleep(5 * time.Second)
+		//lease.Revoke(context.Background(), leaseGrant.ID)
+		cancelFunc()
+	}()
 
 	for {
 		values, err := cli.Get(context.Background(), "ping")
@@ -53,10 +60,10 @@ func LeaseTest(env string, ttl int64) (err error) {
 		}
 		if values.Count == 0 {
 			fmt.Println("已经过期")
+		} else {
+			fmt.Println("没过期", values.Kvs)
 		}
-		fmt.Println("没过期", values.Kvs)
 		time.Sleep(time.Second * 1)
 	}
-	time.Sleep(5 * time.Second)
 	return
 }

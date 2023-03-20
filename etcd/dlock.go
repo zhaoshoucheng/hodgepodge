@@ -42,38 +42,11 @@ func (l *Lock) Lock() (lock bool, err error) {
 	//自动续约
 	keepRespChan, err := l.lease.KeepAlive(l.ctx, l.leaseId)
 	_ = keepRespChan
-	/*
-		go func() {
-			for {
-				select {
-				case keepResp := <-keepRespChan:
-					if keepResp == nil {
-						fmt.Println("租约已经失效了")
-						goto END
-					} else { // 每秒会续租一次, 所以就会受到一次应答
-						fmt.Println("收到自动续租应答:", keepResp.ID)
-					}
-				}
-			}
-		END:
-		}()
-	*/
-
 	return true, nil
 }
 func (l *Lock) Unlock() {
 	//l.cancelFunc()
 	l.lease.Revoke(l.ctx, l.leaseId)
-	/*
-		cli, _ := getEtcdCli("open")
-		value, _ := cli.Get(context.Background(), "lock")
-		if len(value.Kvs) == 0 {
-			fmt.Println("lock del")
-		} else {
-			fmt.Println("get lock ", string(value.Kvs[0].Value))
-		}
-	*/
-
 }
 
 func LockTest() {
