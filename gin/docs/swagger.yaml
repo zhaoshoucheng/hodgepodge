@@ -1,0 +1,20 @@
+info:
+  contact: {}
+paths:
+  /v1/do1:
+    post:
+      consumes:
+      - application/json
+      description: 测试服务连通性helloworld
+      operationId: /v1/do1
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            type: string
+      summary: helloworld
+      tags:
+      - V1
+swagger: "2.0"
