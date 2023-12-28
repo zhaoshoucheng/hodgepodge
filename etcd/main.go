@@ -6,7 +6,8 @@ import (
 	"flag"
 	"fmt"
 	"github.com/spf13/viper"
-	"go.etcd.io/etcd/clientv3"
+	//"go.etcd.io/etcd/clientv3"
+	"github.com/coreos/etcd/clientv3"
 	"log"
 	"net"
 	"time"
@@ -38,14 +39,18 @@ func main() {
 		return
 	}
 
+	fmt.Println(time.Now().Format("02/Jan/2006:03:04:05 -0700"))
 	//err = LeaseTest("open", 5)
 	//err = WatchTest("open")
-	LockTest()
+	//PrintlnAllKey("/", "itest")
+	PrintlnAllKey("/lkfe/test/core/clusters", "dev", 0)
+	//PrintlnAllValue("/lkfe/test/core/clusters/izkdoctor@lfe.cluster", "itest", 0)
+	//LockTest()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
+	//MasterTest()
 	return
 }
 
@@ -96,8 +101,8 @@ func getProxyPolicyMatchGroup() map[string]interface{} {
 	return proxy2
 }
 
-func PrintlnAllKey(path string, env string) error {
-	resp, err := getValue(path, env)
+func PrintlnAllKey(path string, env string, rev int64) error {
+	resp, err := getValue(path, env, rev)
 	if err != nil {
 		return err
 	}
@@ -107,8 +112,8 @@ func PrintlnAllKey(path string, env string) error {
 	return nil
 }
 
-func PrintlnAllValue(path string, env string) (values []string, err error) {
-	resp, err := getValue(path, env)
+func PrintlnAllValue(path string, env string, rev int64) (values []string, err error) {
+	resp, err := getValue(path, env, rev)
 	if err != nil {
 		return
 	}
@@ -120,13 +125,13 @@ func PrintlnAllValue(path string, env string) (values []string, err error) {
 	return
 }
 
-func getValue(path string, env string) (*clientv3.GetResponse, error) {
+func getValue(path string, env string, rev int64) (*clientv3.GetResponse, error) {
 	cli, err := getEtcdCli(env)
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("connect to etcd failed, err:%v\n", err))
 	}
 	ctx, _ := context.WithTimeout(context.TODO(), time.Second)
-	resp, err := cli.KV.Get(ctx, path, clientv3.WithPrefix(), clientv3.WithRev(0))
+	resp, err := cli.KV.Get(ctx, path, clientv3.WithPrefix(), clientv3.WithRev(rev))
 	if err != nil {
 		return nil, err
 	}
