@@ -3,7 +3,7 @@ package auth
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhaoshoucheng/hodgepodge/Access"
-	"github.com/zhaoshoucheng/hodgepodge/quick_gin/middleware"
+	"github.com/zhaoshoucheng/hodgepodge/gin/middleware"
 )
 
 func token(c *gin.Context) {
@@ -23,8 +23,8 @@ func getUserName(c *gin.Context) {
 	c.JSON(200, "username not exists")
 }
 func Register(eng *gin.RouterGroup) {
-	eng.GET("/oauth/tokens",token)
+	eng.GET("/oauth/tokens", token)
 
 	eng.Use(middleware.JwtAuthMiddleware())
-	eng.GET("/username",getUserName)
+	eng.GET("/username", getUserName)
 }

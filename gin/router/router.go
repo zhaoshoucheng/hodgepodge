@@ -3,16 +3,16 @@ package router
 import (
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
+	"github.com/zhaoshoucheng/hodgepodge/gin/controller/auth"
+	"github.com/zhaoshoucheng/hodgepodge/gin/controller/formwork"
+	"github.com/zhaoshoucheng/hodgepodge/gin/controller/jump"
+	"github.com/zhaoshoucheng/hodgepodge/gin/controller/websocket"
 	"github.com/zhaoshoucheng/hodgepodge/jaeger"
-	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/auth"
-	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/formwork"
-	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/jump"
-	"github.com/zhaoshoucheng/hodgepodge/quick_gin/controller/websocket"
 )
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
-	router.Any("/ping",func(c *gin.Context) {
+	router.Any("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
