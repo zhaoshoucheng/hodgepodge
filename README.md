@@ -37,19 +37,16 @@ mysql 数据库的使用
 ## Ioc 控制反转
 控制反转结合工程框架进行应用
 ## Jaeger 链路追踪
-分布式链路追踪系统Jaeger 与实践,结合gin框架的应用,web工程使用的quick_gin
+分布式链路追踪系统Jaeger 与实践,结合gin框架的应用,web工程使用的gin
 ## kafka 
 对kafka的使用
 ## mmap 内存映射
 利用Go's syscall package 使用GO的内存映射文件
-## net 网络封装
-一些网络接口封装
-### nexus
-使用API接口将包上传到nexus
 ## proxy 
 HTTP的代理转发功能
 ## quick_gin gin框架		
-以gin框架为基础的简单服务框架  	
+以gin框架为基础的简单服务框架 
+[详细说明](gin/README.md)
 ## swagger 接口文档生成
 基于swagger的API自动文档生成(gin版本)  	
 ## validate 参数校验
